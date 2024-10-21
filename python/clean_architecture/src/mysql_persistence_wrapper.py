@@ -18,7 +18,7 @@ class MySQLPersistenceWrapper(PersistenceWrapperInterface):
 		self.DB_CONFIG['database'] = 'home_inventory'
 		self.DB_CONFIG['user'] = 'home_inventory_user'
 		self.DB_CONFIG['host'] = '127.0.0.1'
-		self.DB_CONFIG['port'] = 8889 
+		self.DB_CONFIG['port'] = 3306
 
 		# Database Connection
 		self._db_connection = self._initialize_database_connection(self.DB_CONFIG)
