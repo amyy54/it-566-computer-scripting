@@ -3,6 +3,7 @@
 from business_logic import BusinessLogic
 from prettytable import PrettyTable
 import os
+from datetime import datetime
 
 
 class InventoryApp:
@@ -34,11 +35,11 @@ class InventoryApp:
         """Display menu."""
         print("\t\t\tHousehold Inventory Application")
         print()
-        print("\t\t1. New Inventory (Not Implemented)")
+        print("\t\t1. New Inventory")
         print("\t\t2. List Inventories")
         print("\t\t3. Select Inventory")
         print("\t\t4. List Inventory Items")
-        print("\t\t5. Add Items (Not Implemented)")
+        print("\t\t5. Add Items")
         print("\t\t6. Exit")
         print()
 
@@ -71,7 +72,12 @@ class InventoryApp:
         self.clear_screen()
         if __debug__:
             print("new_inventory() method called...")
-        input("\n\nThis method is not yet implemented. Press any key to continue: ")
+        inventory_name = input("Inventory name: ")
+        inventory_description = input("Inventory description: ")
+        date = datetime.isoformat(datetime.now()).replace("T", " ").split(".")[0]
+        self.business_logic.create_new_inventory(
+            inventory_name, inventory_description, date
+        )
 
     def list_inventories(self):
         """List inventories."""
@@ -123,7 +129,11 @@ class InventoryApp:
         """Add items to inventory."""
         if __debug__:
             print("add_items() method called...")
-        input("\n\vThis method is not yet implemented. Press any key to continue: ")
+        name = input("Item name: ")
+        count = int(input("Item count: "))
+        self.business_logic.create_new_inventory_item(
+            self.active_inventory_id, name, count
+        )
 
     def start_application(self):
         """Start the applications."""
