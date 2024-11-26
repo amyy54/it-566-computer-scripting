@@ -25,7 +25,7 @@ class BusinessLogic:
         """Returns all inventories in requested format.
         Only supported format is JSON. Add others as required.
         """
-        query_results = None
+        query_results = []
         try:
             query_results = self._persistence_wrapper.get_all_inventories()
         except Exception as e:
@@ -35,7 +35,12 @@ class BusinessLogic:
         try:
             match format:
                 case "json":
-                    return_results = json.dumps(query_results)
+                    res = []
+                    for query in query_results:
+                        res.append(
+                            {"id": query[0], "name": query[1], "description": query[2]}
+                        )
+                    return res
         except Exception as e:
             print(f"Exception in business logic: {e}")
         return return_results
@@ -62,3 +67,24 @@ class BusinessLogic:
         except Exception as e:
             print(f"Exception in business logic: {e}")
         return query_results
+
+    def get_items_for_inventory_id_with_format(self, id, format: str):
+        query_results = []
+        try:
+            query_results = self._persistence_wrapper.get_items_for_inventory(id)
+        except Exception as e:
+            print(f"Exception in business logic: {e}")
+
+        match format:
+            case "json":
+                res = []
+                for query in query_results:
+                    res.append(
+                        {
+                            "id": query[0],
+                            "inventory_id": query[1],
+                            "name": query[2],
+                            "count": query[3],
+                        }
+                    )
+                return res
